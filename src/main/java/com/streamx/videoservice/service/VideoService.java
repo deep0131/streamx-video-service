@@ -63,13 +63,13 @@ public class VideoService {
 
         // Publish event to Kafka
         // Encoding Service will consume this and start FFmpeg processing
-        VideoUploadedEvent event = new VideoUploadedEvent(
-                movieId,
-                videoKey,
-                bucketName,
-                file.getOriginalFilename(),
-                file.getSize()
-        );
+        VideoUploadedEvent event = VideoUploadedEvent.builder()
+                .movieId(movieId)
+                .videoKey(videoKey)
+                .bucketName(bucketName)
+                .originalFileName(file.getOriginalFilename())
+                .fileSizeBytes(file.getSize())
+                .build();
 
         kafkaTemplate.send(VIDEO_UPLOADED_TOPIC, movieId, event);
         log.info("VideoUploadedEvent published for movie: {}", movieId);

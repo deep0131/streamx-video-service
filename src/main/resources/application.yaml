@@ -1,3 +1,25 @@
 spring:
   application:
     name: video-service
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+server:
+    port: 8081
+
+aws:
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+    region: ${REGION}
+    s3:
+        bucket-name: ${BUCKET_NAME}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
